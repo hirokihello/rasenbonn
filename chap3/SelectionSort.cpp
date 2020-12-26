@@ -12,24 +12,24 @@ typedef long long ll;
 typedef unsigned long long ull;
 typedef unsigned int ui;
 
-// 若干計算量が多いので、後ろからやってくと下がっていく。詳しくは螺旋本参照。
-// 毎回最初から最後までやっているので計算済みのidxを作ってそこを計算しないようにするとよき。
-
-void bubbleSort (vector<int> vec) {
+void selectionSort (vector<int> vec) {
   int count = 0;
-  bool flag = true;
-  while(flag) {
-    flag = false;
+  int currentIdx;
 
-    for(int i = 1; i < vec.size(); i++) {
-      if(vec[i-1] > vec[i]) {
-        flag = true;
-        int tmp = vec[i];
-        vec[i] = vec[i-1];
-        vec[i-1] = tmp;
-        count++;
+  for(int i = 0; i < vec.size(); i++) {
+    int minJ = i;
+
+    for(int j = i+1; j < vec.size(); j++) {
+      if(vec[j] < vec[minJ]) {
+        minJ = j;
       }
     }
+
+    if(minJ != i) count++;
+
+    int tmp = vec[minJ];
+    vec[minJ] = vec[i];
+    vec[i] = tmp;
   }
 
   for(int i = 0; i < vec.size(); i++) {
@@ -52,5 +52,5 @@ int main () {
     vec.push_back(a);
   }
 
-  bubbleSort(vec);
+  selectionSort(vec);
 }
